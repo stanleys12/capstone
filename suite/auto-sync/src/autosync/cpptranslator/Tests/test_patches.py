@@ -103,7 +103,7 @@ class TestPatches(unittest.TestCase):
         if filename:
             kwargs["filename"] = filename
 
-        query: Query = self.ts_cpp_lang.query(patch.get_search_pattern())
+        query: Query = Query(self.ts_cpp_lang, patch.get_search_pattern())
         tree = self.parser.parse(syntax)
         kwargs["tree"] = tree
         captures_bundle: [[(Node, str)]] = list()

@@ -1,7 +1,7 @@
 # Copyright © 2022 Rot127 <unisono@quyllur.org>
 # SPDX-License-Identifier: BSD-3
 
-from tree_sitter import Node
+from tree_sitter import Node, Query, QueryCursor
 
 from autosync.cpptranslator.patches.Helper import get_text, get_text_from_node
 from autosync.cpptranslator.patches.Patch import Patch
@@ -114,12 +114,12 @@ class StreamOperations(Patch):
                     )
                 )) @decl
 """
-            query = kwargs["ts_cpp_lang"].query(queue_str)
+            query = Query(kwargs["ts_cpp_lang"], queue_str)
             root_node = kwargs["tree"].root_node
             query_result = list(
                 filter(
                     lambda x: "typ" in x[1],
-                    query.matches(root_node),
+                    QueryCursor(query).matches(root_node),
                 )
             )
             if len(query_result) == 0:
