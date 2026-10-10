@@ -103,7 +103,7 @@ class TestPatches(unittest.TestCase):
         if filename:
             kwargs["filename"] = filename
 
-        query: Query = self.ts_cpp_lang.query(patch.get_search_pattern())
+        query: Query = Query(self.ts_cpp_lang, patch.get_search_pattern())
         tree = self.parser.parse(syntax)
         kwargs["tree"] = tree
         captures_bundle: [[(Node, str)]] = list()
@@ -146,7 +146,7 @@ class TestPatches(unittest.TestCase):
 
     def test_bitcaststdarray(self):
         patch = BitCastStdArray(0)
-        syntax = b"auto S = bit_cast<std::array<int32_t, 2>>(Imm);"
+        syntax = b"auto S = bit_cast<std::array<int32_t, 2>>(Imm); auto T = bit_cast<uint64_t>(Imm);"
         self.check_patching_result(
             patch,
             syntax,

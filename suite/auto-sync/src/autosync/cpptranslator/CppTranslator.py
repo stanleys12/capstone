@@ -434,7 +434,7 @@ class Translator:
                 # Each patch has a capture which includes the whole subtree searched for.
                 # Additionally, it can include captures within this subtree.
                 # Here we bundle these captures together.
-                query: Query = self.ts_cpp_lang.query(pattern)
+                query: Query = Query(self.ts_cpp_lang, pattern)
                 captures_bundle: [[(Node, str)]] = list()
                 for q in query_captures_22_3(query, self.tree.root_node):
                     if q[1] == patch.get_main_capture_name():

@@ -1,4 +1,4 @@
-from tree_sitter import Node, Query
+from tree_sitter import Node, Query, QueryCursor
 
 
 # Queries for the given pattern and converts the query back to the tree-siter v22.3 format.
@@ -6,7 +6,7 @@ from tree_sitter import Node, Query
 # Node of the capture and the second one is the name.
 def query_captures_22_3(query: Query, node: Node) -> list[tuple[Node, str]]:
     result = list()
-    captures = query.captures(node)
+    captures = QueryCursor(query).captures(node)
     # Captures are no longer sorted by start point.
     captures_sorted = dict()
     nodes: list[Node]
